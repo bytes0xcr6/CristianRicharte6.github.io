@@ -22,7 +22,7 @@ contract PlantiverseNFT is ERC721URIStorage{
 
     event NFTMinted(address indexed minter, uint nftId, uint mintingTime);
     event FundsWithdrawn(address indexed caller, address indexed to, uint amount, uint updateTime);
-    event mintingFeeUpdated(uint newMintingFee, uint updateTime);
+    event MintingFeeUpdated(uint newMintingFee, uint updateTime);
     event PausedContract(bool contractStatus, uint updateTime);
     event UnpauseContract(bool contractStatus, uint updateTime);
     event BaseURIUpdated(string newBaseURI, uint updateTime);
@@ -114,7 +114,7 @@ contract PlantiverseNFT is ERC721URIStorage{
      */
     function setMintingFee(uint _mintingFee) external onlyOwner returns(bool) {
         mintingFee = _mintingFee;
-        emit mintingFeeUpdated(_mintingFee, block.timestamp);
+        emit MintingFeeUpdated(_mintingFee, block.timestamp);
         return true;
     }
 
