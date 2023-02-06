@@ -1,4 +1,12 @@
-# Plantiverse.github.io
+# Soft Smart Contract (Plantiverse)
+
+NFTs are pointing to this BASE URL -> cristianRicharte6.github.io/
+
+Then we need to add the Token path -> metadata/<TOKEN ID>.json
+
+**Example of BASE URL & Token Path concatenated:** <a href="cristianRicharte6.github.io/metadata/0.json">cristianRicharte6.github.io/metadata/0.json</a>
+
+## More links:
 
 - <a href="https://www.plantiver.se/">Plantiverse.se</a>
 
