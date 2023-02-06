@@ -1,4 +1,4 @@
-# CristianRicharte6.github.io
+# Plantiverse.github.io
 
 - <a href="https://www.plantiver.se/">Plantiverse.se</a>
 
