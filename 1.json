@@ -1,0 +1,16 @@
+{
+  "name": "Nike sneakers 2022",
+  "description": "Limited Nike sneakers collection of 10 pairs from 2022",
+  "image": "https://cristianricharte6test.infura-ipfs.io/ipfs/QmZUw9vTPar5hA5a21QiWG57mj4E1K71djkFPcuja7wKGs",
+  "attributes": [
+    { "trait_type": "Brand", "value": "Nike" },
+    { "trait_type": "Scale", "value": "1" },
+    { "trait_type": "Total Grams", "value": "30" },
+    { "trait_type": "Material PETG", "value": "50%" },
+    { "trait_type": "Material XXXX", "value": "30%" },
+    { "trait_type": "Material XXXX", "value": "20%" },
+    { "trait_type": "boundingBox Heigh", "value": "30" },
+    { "trait_type": "boundingBox Length", "value": "40" },
+    { "trait_type": "boundingBox Width", "value": "30" }
+  ]
+}
