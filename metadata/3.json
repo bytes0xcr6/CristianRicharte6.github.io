@@ -1,7 +1,7 @@
 {
   "name": "Plant 3",
   "description": "Dynamic Plant NFT",
-  "image": "Plantiverse.github.io/imgs/3.png",
+  "image": "CristianRicharte6.github.io/imgs/3.png",
   "attributes": [
     { "trait_type": "Humidity", "value": "40%" },
     { "trait_type": "Salinity", "value": "10%" },
