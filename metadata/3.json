@@ -1,0 +1,15 @@
+{
+  "name": "Plant 3",
+  "description": "Dynamic Plant NFT",
+  "image": "CristianRicharte6.github.io/imgs/3.png",
+  "attributes": [
+    { "trait_type": "Humidity", "value": "40%" },
+    { "trait_type": "Salinity", "value": "10%" },
+    { "trait_type": "Stress", "value": "20%" },
+    { "trait_type": "Water", "value": "90%" },
+    { "trait_type": "Photosynthesis", "value": "100%" },
+    { "trait_type": "Art", "value": "60%" },
+    { "trait_type": "Agility and Mobility", "value": "10%" },
+    { "trait_type": "Communication", "value": "10%" }
+  ]
+}
