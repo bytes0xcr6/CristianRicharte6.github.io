@@ -1,4 +1,4 @@
-# Soft Smart Contract (Plantiverse)
+# 🌱 Soft Smart Contract (Plantiverse)
 
 NFTs are pointing to this BASE URL -> cristianRicharte6.github.io/
 
