@@ -18,7 +18,7 @@ contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
     string private baseURI; // Example: cristianricharte6.github.io/metadata/
     uint public nFTsMinted; // First NFT minted will be 0.
     uint public mintingFee;
-    bool public mintingStatus;
+    bool public mintingStatus; // True = Paused | False = Unpaused
     bool public locked; // Reentracy guard
 
     event NFTMinted(address indexed minter, uint nftId, uint mintingTime);
@@ -70,22 +70,23 @@ contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
      * @dev Batch minting function. It will mint any amount of NFTs higher than 1.
      * @param amount: Number of NFTs we want to mint.
      * @notice NFTs minted / gas used
-     * 1 -      73.663 gas (Not it is not allowed)
-     * 2 -     105.899 gas
-     * 3 -     138.136 gas
-     * 5 -     202.610 gas
-     * 10 -    363.794 gas
-     * 100 - 3.265.106 gas // Each NFT minted costs 32.651
+     * 2 -     105.849 gas
+     * 3 -     138.061 gas
+     * 5 -     202.487 gas
+     * 10 -    363.550 gas
+     * 100 - 3.215.226 gas // Each NFT minted costs 32.152
      */
     function batchMinting(uint amount) external payable returns(bool) {
         require(amount > 1, "Mint more than 1 NFT");
         require(!mintingStatus, "Minting is paused");
         require(msg.value == amount * mintingFee, "Pay mintingFee");
+        uint memoryCount = nFTsMinted;
         for(uint i; i < amount; i++) {
-            _mint(msg.sender, nFTsMinted);
-            emit NFTMinted(msg.sender, nFTsMinted, block.timestamp);
-            nFTsMinted++; // set memory and once finished set storage.
+            _mint(msg.sender, memoryCount);
+            emit NFTMinted(msg.sender, memoryCount, block.timestamp);
+            memoryCount++;
         }
+        nFTsMinted = memoryCount; 
         return true;
     }
 
