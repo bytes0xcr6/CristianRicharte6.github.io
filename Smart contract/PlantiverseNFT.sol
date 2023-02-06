@@ -19,7 +19,7 @@ contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
     uint public nFTsMinted; // First NFT minted will be 0.
     uint public mintingFee;
     bool public mintingStatus; // True = Paused | False = Unpaused
-    bool public locked; // Reentracy guard
+    bool internal locked; // Reentracy guard
 
     event NFTMinted(address indexed minter, uint nftId, uint mintingTime);
     event FundsWithdrawn(address indexed caller, address indexed to, uint amount, uint updateTime);
