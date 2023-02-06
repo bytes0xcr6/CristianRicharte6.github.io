@@ -1,0 +1,11 @@
+{
+  "name": "Plant 0",
+  "description": "Dynamic Plant NFT",
+  "image": "CristianRicharte6.github.io/blob/main/imgs/0.png",
+  "attributes": [
+    { "trait_type": "Humidity", "value": "40%" },
+    { "trait_type": "Salinity", "value": "10%" },
+    { "trait_type": "Stress", "value": "20%" },
+    { "trait_type": "Water", "value": "90%" }
+  ]
+}
