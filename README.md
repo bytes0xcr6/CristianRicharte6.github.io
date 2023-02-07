@@ -30,11 +30,10 @@ Then we need to add the Token path -> metadata/<TOKEN ID>.json
 - Solidity coverage.
 
 ## Functions / Operations
-**Getters and Read-only operations**
+**Getters and Read-only operations** 📖
 
 - balanceOf: Getter for the entire number of NFTs assigned to a given address.
 - getApproved: Verifies which Address, other than the owner, is permitted to administer the NFT.
-
 - isApprovedForAll: Determines whether the Address X may control the NFT of the Address Y.
 - mintingFee: Getter for the per-NFT minting fee.
 - mintingStatus: Verifies whether the minting operations have been halted.
@@ -45,8 +44,7 @@ Then we need to add the Token path -> metadata/<TOKEN ID>.json
 - ownerOf: Gives the address that owns the token Id X.
 - supportsInterface: Internal call to see if an interface is supported. (Not helpful, but necessary)
 
-----------------------------------------
-**Setters and writing operations**
+**Setters and writing operations** ✍
 
 - approve: Gives Address X permission to manage Token ID Y - mint - Use the minting function to create a single NFT.
 - batchMinting: Minting function for several NFTs. (More Gas efficient)
