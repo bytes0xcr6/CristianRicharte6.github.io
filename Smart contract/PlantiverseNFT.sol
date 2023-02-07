@@ -4,29 +4,28 @@ pragma solidity 0.8.18;
 // @author Plantiverse (Cristian Richarte Gil)
 // @title Plantiverse NFT collection
 
-
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 interface IPlantiverseNFT {
-    function mint() external payable returns(bool);
-    function batchMinting(uint amount) external payable returns(bool);
+    function mint() external payable;
+    function batchMinting(uint256 amount) external payable;
 }
 
 contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
 
     address private owner;
-    string private baseURI; // Example: cristianricharte6.github.io/metadata/
-    uint public nFTsMinted; // First NFT minted will be 0.
-    uint public mintingFee;
+    string private baseURI; // Example: https://cristianricharte6.github.io/metadata/
+    uint256 public nFTsMinted; // First NFT minted will be 0.
+    uint256 public mintingFee;
     bool public mintingStatus; // True = Paused | False = Unpaused
     bool internal locked; // Reentracy guard
 
-    event NFTMinted(address indexed minter, uint nftId, uint mintingTime);
-    event FundsWithdrawn(address indexed caller, address indexed to, uint amount, uint updateTime);
-    event MintingFeeUpdated(uint newMintingFee, uint updateTime);
-    event PausedContract(bool contractStatus, uint updateTime);
-    event UnpauseContract(bool contractStatus, uint updateTime);
-    event BaseURIUpdated(string newBaseURI, uint updateTime);
+    event NFTMinted(address indexed minter, uint256 nftId, uint256 mintingTime);
+    event FundsWithdrawn(address indexed caller, address indexed to, uint256 amount, uint256 updateTime);
+    event MintingFeeUpdated(uint256 newMintingFee, uint256 updateTime);
+    event PausedContract(bool contractStatus, uint256 updateTime);
+    event UnpauseContract(bool contractStatus, uint256 updateTime);
+    event BaseURIUpdated(string newBaseURI, uint256 updateTime);
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     modifier onlyOwner{
@@ -54,15 +53,14 @@ contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
     /** 
      * @dev Individual minting function. It will mint only 1 NFT per call.
      * @notice NFTs minted / gas used
-     * 1 - 72.721 gas 
+     * 1 - 72.362 gas 
      */
-    function mint() external payable returns(bool){
+    function mint() external payable{
         require(!mintingStatus, "Minting is paused");
         require(msg.value == mintingFee, "Pay minting Fee");
         _mint(msg.sender, nFTsMinted);
         emit NFTMinted(msg.sender, nFTsMinted, block.timestamp);
-        nFTsMinted++;
-        return true;
+        ++nFTsMinted;
     }
 
 
@@ -70,24 +68,27 @@ contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
      * @dev Batch minting function. It will mint any amount of NFTs higher than 1.
      * @param amount: Number of NFTs we want to mint.
      * @notice NFTs minted / gas used
-     * 2 -     105.849 gas
-     * 3 -     138.061 gas
-     * 5 -     202.487 gas
-     * 10 -    363.550 gas
-     * 100 - 3.215.226 gas // Each NFT minted costs 32.152
+     * 2 -     104.348 gas // Each NFT minted costs 52.174 gas
+     * 3 -     135.792 gas // Each NFT minted costs 45.264 gas
+     * 5 -     198.681 gas // Each NFT minted costs 39.736 gas
+     * 10 -    355.904 gas // Each NFT minted costs 35.590 gas
+     * 100 - 3.185.904 gas // Each NFT minted costs 31.859 gas
      */
-    function batchMinting(uint amount) external payable returns(bool) {
+    function batchMinting(uint256 amount) external payable{
         require(amount > 1, "Mint more than 1 NFT");
         require(!mintingStatus, "Minting is paused");
         require(msg.value == amount * mintingFee, "Pay mintingFee");
-        uint memoryCount = nFTsMinted;
-        for(uint i; i < amount; i++) {
+        uint256 memoryCount = nFTsMinted;
+        for(uint256 i; i < amount;) {
             _mint(msg.sender, memoryCount);
             emit NFTMinted(msg.sender, memoryCount, block.timestamp);
-            memoryCount++;
+
+            unchecked {
+                ++i;
+                ++memoryCount;
+            } 
         }
-        nFTsMinted = memoryCount; 
-        return true;
+        nFTsMinted = memoryCount;
     }
 
     /** 
@@ -95,7 +96,7 @@ contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
      * @param to: Address to send the value from the Smart contract.
      * @param amount: Total amount to transfer.
      */
-    function withdraw(address payable to, uint amount) external payable onlyOwner reentrancyGuard returns(bool) {
+    function withdraw(address payable to, uint256 amount) external payable onlyOwner reentrancyGuard returns(bool) {
         require(to != address(0), "Not a valid address");
         (to).transfer(amount);
         emit FundsWithdrawn(msg.sender, to, amount, block.timestamp);
@@ -106,7 +107,7 @@ contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
      * @dev Setter function to stop or reanude the minting function
      * @param status: Pause or Unpause minting new NFTs.
      */
-    function setPauseContract(bool status) external onlyOwner returns(bool) {
+    function setPauseContract(bool status) external onlyOwner{
         mintingStatus = status;
 
         if(status == true) {
@@ -114,29 +115,25 @@ contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
         }else {
             emit UnpauseContract(status, block.timestamp);
         }
-
-        return true;
     } 
 
     /** 
      * @dev Setter for Minting Fee.
      * @param newMintingFee: New Minting Fee to set.
      */
-    function setMintingFee(uint newMintingFee) external onlyOwner returns(bool) {
+    function setMintingFee(uint256 newMintingFee) external onlyOwner{
         mintingFee = newMintingFee;
         emit MintingFeeUpdated(newMintingFee, block.timestamp);
-        return true;
     }
 
     /**
      * @dev Setter for Base URI.
      * @param newBaseURI: New Base URI to set.
      */
-    function updateBaseURI(string memory newBaseURI) external onlyOwner returns(bool) {
+    function updateBaseURI(string memory newBaseURI) external onlyOwner{
         baseURI = newBaseURI;
 
         emit BaseURIUpdated(newBaseURI, block.timestamp);
-        return true;
     }
 
     /**
@@ -144,7 +141,7 @@ contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
      * Internal function without access restriction.
      * @param newOwner: New contract Owner to set.
      */
-    function transferOwnership(address newOwner) external onlyOwner {
+    function transferOwnership(address newOwner) external onlyOwner{
         require(newOwner != address(0), "Not a valid address");
         address oldOwner = owner;
         owner = newOwner;
@@ -153,10 +150,10 @@ contract PlantiverseNFT is IPlantiverseNFT, ERC721URIStorage{
 
     /**
      * @dev Getter for a concatenated string of base URI + Token URI + file extension.
-     * @param tokenId: NFT Id.
+     * @param _tokenId: NFT Id.
      */
-    function tokenURI(uint256 tokenId) public view override(ERC721URIStorage) returns (string memory) {
-        return string(abi.encodePacked(ERC721URIStorage.tokenURI(tokenId),".json"));
+    function tokenURI(uint256 _tokenId) public view override(ERC721URIStorage) returns (string memory) {
+        return string(abi.encodePacked(ERC721URIStorage.tokenURI(_tokenId),".json"));
     }
 
     /**
