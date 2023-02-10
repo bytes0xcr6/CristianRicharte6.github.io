@@ -1,4 +1,6 @@
-# Unic NFT Collection with Upgradable metadata, having the Metadata End point in a local host.
+# Unic NFT Collection 
+
+with Upgradable metadata, having the Metadata End point in a local host.
 
 - Contract address (Mumbai Testnet): 0x15009f785A681899D40cda06b321De9F800d5de7
 - <a href="https://testnets.opensea.io/es/collection/plantiverse">OpenSea TestNet collection</a>
