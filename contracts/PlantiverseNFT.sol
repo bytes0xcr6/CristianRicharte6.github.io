@@ -10,10 +10,8 @@ import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155URIStorage.sol";
 contract PlantiverseNFT is IERC1155, ERC1155URIStorage{
 
     address private owner;
-    uint256 public nFTsMinted; // First NFT minted will be 0.
-    uint256 public mintingFee;
-    bool public mintingStatus; // True = Paused | False = Unpaused
-    bool internal locked; // Reentracy guard
+    uint256 public nFTcount; // First NFT collection minted will be 1.
+    bool private isMintingPaused; // True = Paused | False = Unpaused
 
     event NFTMinted(address indexed minter, uint256 nftId, uint256 amount, uint256 mintingTime);
     event FundsWithdrawn(address indexed caller, address indexed to, uint256 amount, uint256 updateTime);
@@ -28,15 +26,8 @@ contract PlantiverseNFT is IERC1155, ERC1155URIStorage{
         _;
     }
 
-    modifier reentrancyGuard {
-        require(locked == true);
-        locked = true;
-        _;
-        locked = false;
-    }
-
     /** 
-     * @param baseURI_: Base URI where the NFTs Metadata is Stored.
+     * @param baseURI_: Base URI where the NFTs Metadata is Stored. // Example: https://cristianricharte6.github.io/metadata/
      */
     constructor(string memory baseURI_) ERC1155(baseURI_){
         _setBaseURI(baseURI_);
@@ -44,37 +35,23 @@ contract PlantiverseNFT is IERC1155, ERC1155URIStorage{
     }
     
     /** 
-     * @dev Individual minting function. It will mint only 1 NFT per call.
-     * @param _amount: Total amount of NFTs we want to mint. (Same NFT Collection)
-     * @notice NFTs minted / gas used
-     * 1 - 72.362 gas 
+     * @dev Individual minting function. It will mint only 1 NFT per call, but you can create as many copies as you want.
+     * @param _amount: Total amount of NFTs copies we want to mint. (Same NFT Collection)
      */
     function mint(uint256 _amount) external onlyOwner{
-        require(!mintingStatus, "Minting is paused");
-        _mint(msg.sender, nFTsMinted, _amount, "");
-        emit NFTMinted(msg.sender, nFTsMinted, _amount, block.timestamp);
-        ++nFTsMinted;
-    }
-
-
-    /** 
-     * @dev Withdraw function
-     * @param to: Address to send the value from the Smart contract.
-     * @param amount: Total amount to transfer.
-     */
-    function withdraw(address payable to, uint256 amount) external payable onlyOwner reentrancyGuard returns(bool) {
-        require(to != address(0), "Not a valid address");
-        (to).transfer(amount);
-        emit FundsWithdrawn(msg.sender, to, amount, block.timestamp);
-        return true;
+    require(!isMintingPaused, "Minting is paused");
+        ++nFTcount;
+        _mint(msg.sender, nFTcount, _amount, "");
+        _setURI(nFTcount, Strings.toString(nFTcount));
+        emit NFTMinted(msg.sender, nFTcount, _amount, block.timestamp);
     }
 
     /** 
-     * @dev Setter function to stop or reanude the minting function
+     * @dev Setter function to stop or reanude the minting function.
      * @param status: Pause or Unpause minting new NFTs.
      */
-    function setPauseContract(bool status) external onlyOwner{
-        mintingStatus = status;
+    function pauseMinting(bool status) external onlyOwner{
+        isMintingPaused = status;
 
         if(status == true) {
             emit PausedContract(status, block.timestamp);
@@ -82,15 +59,6 @@ contract PlantiverseNFT is IERC1155, ERC1155URIStorage{
             emit UnpauseContract(status, block.timestamp);
         }
     } 
-
-    /** 
-     * @dev Setter for Minting Fee.
-     * @param newMintingFee: New Minting Fee to set.
-     */
-    function setMintingFee(uint256 newMintingFee) external onlyOwner{
-        mintingFee = newMintingFee;
-        emit MintingFeeUpdated(newMintingFee, block.timestamp);
-    }
 
     /**
      * @dev Setter for Base URI.
@@ -104,7 +72,6 @@ contract PlantiverseNFT is IERC1155, ERC1155URIStorage{
 
     /**
      * @dev Transfers ownership of the contract to a new account (`newOwner`).
-     * Internal function without access restriction.
      * @param newOwner: New contract Owner to set.
      */
     function transferOwnership(address newOwner) external onlyOwner{
@@ -131,12 +98,7 @@ contract PlantiverseNFT is IERC1155, ERC1155URIStorage{
      *   uri value set, then the result is empty.
      */   
     function uri(uint256 _nFTCollection) public view override(ERC1155URIStorage) returns (string memory) {
-        require(_nFTCollection != 0 && nFTsMinted >= _nFTCollection, "Wrong NFT Collection");
+        require(_nFTCollection != 0 && nFTcount >= _nFTCollection, "Wrong NFT Collection");
         return string(abi.encodePacked(ERC1155URIStorage.uri(_nFTCollection),".json"));
     }
-
-    /**
-     * @dev Receive function to allow the contract receive ETH.
-     */
-    receive() external payable {}
 }
