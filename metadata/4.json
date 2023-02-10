@@ -1,7 +1,7 @@
 {
-  "name": "Plant 0",
+  "name": "Plant 3",
   "description": "Dynamic Plant NFT",
-  "image": "https://cristianricharte6.github.io/imgs/1.png",
+  "image": "https://cristianricharte6.github.io/imgs/4.png",
   "ios3D": "https://",
   "model3D": "https://",
   "history": "https://",
@@ -12,7 +12,7 @@
     { "trait_type": "Water", "value": "90%" },
     { "trait_type": "Photosynthesis", "value": "100%" },
     { "trait_type": "Art", "value": "60%" },
-    { "trait_type": "Agility and Mobility", "value": "40%" },
+    { "trait_type": "Agility and Mobility", "value": "10%" },
     { "trait_type": "Communication", "value": "10%" }
   ]
 }

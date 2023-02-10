@@ -1,7 +1,10 @@
 {
-  "name": "Plant 2",
+  "name": "Plant 1",
   "description": "Dynamic Plant NFT",
   "image": "https://cristianricharte6.github.io/imgs/2.png",
+  "ios3D": "https://",
+  "model3D": "https://",
+  "history": "https://",
   "attributes": [
     { "trait_type": "Humidity", "value": "40%" },
     { "trait_type": "Salinity", "value": "10%" },
