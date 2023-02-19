@@ -2,7 +2,7 @@
 {
   "name": "NFT Ticket against Sybil Attack",
   "description": "NFT Ticket against Sybil Attack",
-  "image": "https://cristianricharte6.github.io/imgs/1.png",
+  "image": "https://cristianricharte6.github.io/Blextick/Blextick.png",
   "attributes": [
     { "trait_type": "Seat", "value": "43" },
     { "trait_type": "Row", "value": "3" },
