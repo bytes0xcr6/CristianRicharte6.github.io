@@ -1,1 +1,12 @@
 
+{
+  "name": "NFT Ticket against Sybil Attack",
+  "description": "NFT Ticket against Sybil Attack",
+  "image": "https://cristianricharte6.github.io/imgs/1.png",
+  "attributes": [
+    { "trait_type": "Seat", "value": "43" },
+    { "trait_type": "Row", "value": "3" },
+    { "trait_type": "Section", "value": "G" },
+    { "trait_type": "Max tickets per person", "value": "2" }
+  ]
+}
