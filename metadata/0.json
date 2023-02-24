@@ -2,9 +2,10 @@
   {
     "name": "Plant 0",
     "description": "Dynamic Plant NFT",
+    "external_url": "https://nftplantiverse.com",
     "image": "https://cristianricharte6.github.io/imgs/0.png",
     "animation_url": "https://nftplantiverse.s3.eu-central-1.amazonaws.com/Plant_0/tree.glb",
-    "model3D": "https://nftplantiverse.s3.eu-central-1.amazonaws.com/Plant_0/test.usdz",
+    "ios3D": "https://nftplantiverse.s3.eu-central-1.amazonaws.com/Plant_0/test.usdz",
     "attributes": [
       {
         "trait_type": "Humidity",
