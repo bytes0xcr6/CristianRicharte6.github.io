@@ -5,8 +5,6 @@
     "image": "https://cristianricharte6.github.io/imgs/1.png",
     "animation_url": "https://nftplantiverse.s3.eu-central-1.amazonaws.com/Plant_0/tree.glb",
     "model3D": "https://nftplantiverse.s3.eu-central-1.amazonaws.com/Plant_0/test.usdz",
-    "history": "",
-    "timestamp": 1677084406,
     "attributes": [
       {
         "trait_type": "Humidity",
