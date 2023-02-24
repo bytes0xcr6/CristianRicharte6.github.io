@@ -1,18 +1,43 @@
-{
-  "name": "Plant 2",
-  "description": "Dynamic Plant NFT",
-  "image": "https://cristianricharte6.github.io/imgs/3.png",
-  "ios3D": "https://",
-  "model3D": "https://",
-  "history": "https://",
-  "attributes": [
-    { "trait_type": "Humidity", "value": "40%" },
-    { "trait_type": "Salinity", "value": "10%" },
-    { "trait_type": "Stress", "value": "20%" },
-    { "trait_type": "Water", "value": "90%" },
-    { "trait_type": "Photosynthesis", "value": "100%" },
-    { "trait_type": "Art", "value": "60%" },
-    { "trait_type": "Agility and Mobility", "value": "10%" },
-    { "trait_type": "Communication", "value": "10%" }
-  ]
-}
+[
+  {
+    "name": "Plant 3",
+    "description": "Dynamic Plant NFT",
+    "image": "https://cristianricharte6.github.io/imgs/3.png",
+    "animation_url": "https://nftplantiverse.s3.eu-central-1.amazonaws.com/Plant_0/tree.glb",
+    "model3D": "https://nftplantiverse.s3.eu-central-1.amazonaws.com/Plant_0/test.usdz",
+    "attributes": [
+      {
+        "trait_type": "Humidity",
+        "value": 12
+      },
+      {
+        "trait_type": "Air Quality",
+        "value": "10%"
+      },
+      {
+        "trait_type": "Stress",
+        "value": "20%"
+      },
+      {
+        "trait_type": "Water",
+        "value": 7
+      },
+      {
+        "trait_type": "Photosynthesis",
+        "value": 101
+      },
+      {
+        "trait_type": "Art",
+        "value": "60%"
+      },
+      {
+        "trait_type": "Agility and Mobility",
+        "value": "10%"
+      },
+      {
+        "trait_type": "Communication",
+        "value": "10%"
+      }
+    ]
+  }
+]
