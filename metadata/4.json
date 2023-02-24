@@ -9,7 +9,7 @@
     "attributes": [
       {
         "trait_type": "Humidity",
-        "value": 12
+        "value": "12"
       },
       {
         "trait_type": "Air Quality",
@@ -21,11 +21,11 @@
       },
       {
         "trait_type": "Water",
-        "value": 7
+        "value": "7"
       },
       {
         "trait_type": "Photosynthesis",
-        "value": 101
+        "value": "101"
       },
       {
         "trait_type": "Art",
